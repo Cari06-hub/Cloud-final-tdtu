@@ -1,0 +1,61 @@
+##############################################################
+# Docker Compose – TV2 (Tuấn Anh – MSSV: 52400001)
+# 3 services: Keycloak, MinIO, Bind9 DNS
+# Network: cloud-net
+##############################################################
+
+services:
+  # ============================================================
+  # 1. Authentication & Identity Server (Keycloak)
+  # ============================================================
+  authentication-identity-server:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: authentication-identity-server
+    command: start-dev
+    ports:
+      - "8081:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: change_me_keycloak
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: change_me_keycloak
+    networks:
+      - cloud-net
+    restart: unless-stopped
+
+  # ============================================================
+  # 2. Object Storage Server (MinIO via Bitnami – public, no login needed)
+  # ============================================================
+  object-storage-server:
+    image: bitnamilegacy/minio:2024.6.13
+    container_name: object-storage-server
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: change_me_minio
+    networks:
+      - cloud-net
+    restart: unless-stopped
+
+  # ============================================================
+  # 3. Internal DNS Server (Bind9)
+  # ============================================================
+  internal-dns-server:
+    image: internetsystemsconsortium/bind9:9.18
+    container_name: internal-dns-server
+    ports:
+      - "1053:53/udp"
+      - "1053:53/tcp"
+    volumes:
+      - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
+      - ./internal-dns-server/zones:/etc/bind/zones:ro
+    networks:
+      - cloud-net
+    restart: unless-stopped
+
+networks:
+  cloud-net:
+    name: cloud-net
+    driver: bridge
