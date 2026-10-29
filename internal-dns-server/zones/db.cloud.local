@@ -1,0 +1,25 @@
+; ===========================================================
+; Zone file cho cloud.local – MyMiniCloud Internal DNS
+; Maintainer: Tuấn Anh (TV2)
+; ===========================================================
+
+$TTL    604800
+
+@       IN      SOA     ns.cloud.local. admin.cloud.local. (
+                        2024061301      ; Serial  (YYYYMMDDNN)
+                              3600      ; Refresh (1 hour)
+                               600      ; Retry   (10 min)
+                           2419200      ; Expire  (4 weeks)
+                            604800 )    ; Negative Cache TTL (1 week)
+
+; --- Name Server ---
+@       IN      NS      ns.cloud.local.
+
+; --- NS record ---
+ns      IN      A       10.10.10.1
+
+; --- Service A Records ---
+web-frontend-server     IN      A       10.10.10.10
+app-backend             IN      A       10.10.10.20
+minio                   IN      A       10.10.10.30
+keycloak                IN      A       10.10.10.40
