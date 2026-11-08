@@ -1,0 +1,24 @@
+
+services:
+  relational-database-server:
+    image: mariadb:11
+    container_name: relational-database-server
+
+    env_file:
+      - .env
+
+    volumes:
+      - tv1_mariadb_data:/var/lib/mysql
+      - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
+
+    networks:
+      - cloud-net
+
+    restart: unless-stopped
+
+networks:
+  cloud-net:
+    external: true
+
+volumes:
+  tv1_mariadb_data:
