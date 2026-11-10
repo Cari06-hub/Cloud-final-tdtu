@@ -20,6 +20,8 @@ Nguồn file, các thay đổi chuẩn hóa và kết quả kiểm tra Giai đo�
 
 Cấu hình, quyết định phiên bản và kết quả nghiệm thu Prometheus/Node Exporter được ghi tại [docs/stage-3-monitoring-audit.md](docs/stage-3-monitoring-audit.md).
 
+Cấu hình provisioning, dashboard B8/E8 và kết quả kiểm thử Grafana từ volume rỗng được ghi tại [docs/stage-4-grafana-audit.md](docs/stage-4-grafana-audit.md).
+
 ## Thành viên và phạm vi
 
 | Thành viên | Phạm vi chính |

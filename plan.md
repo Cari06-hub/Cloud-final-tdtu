@@ -340,22 +340,22 @@ http://monitoring-prometheus-server:9090
 
 Không dùng `localhost:9090` trong Grafana container.
 
-- [ ] Tạo provisioning datasource.
-- [ ] Đặt UID datasource ổn định, ví dụ `prometheus`.
-- [ ] Đặt Prometheus làm datasource mặc định.
-- [ ] Tạo dashboard provider.
-- [ ] Mount provisioning và dashboard JSON vào Grafana.
-- [ ] Thêm volume `grafana_data`.
-- [ ] Dùng tài khoản admin từ `.env`.
+- [x] Tạo provisioning datasource.
+- [x] Đặt UID datasource ổn định là `prometheus`.
+- [x] Đặt Prometheus làm datasource mặc định.
+- [x] Tạo dashboard provider.
+- [x] Mount provisioning và dashboard JSON vào Grafana.
+- [x] Thêm volume `grafana_data`.
+- [x] Dùng tài khoản admin từ `.env`.
 
 ### B8 - Node Exporter Full
 
-- [ ] Import dashboard Node Exporter Full.
-- [ ] Dashboard nhận đúng datasource.
-- [ ] CPU có dữ liệu.
-- [ ] RAM có dữ liệu.
-- [ ] Network có dữ liệu.
-- [ ] Không để panel `No data` khi chụp minh chứng.
+- [x] Import dashboard Node Exporter Full ID `1860`, revision `45`.
+- [x] Dashboard nhận đúng datasource UID `prometheus`.
+- [x] CPU có dữ liệu.
+- [x] RAM có dữ liệu.
+- [x] Network có dữ liệu.
+- [x] Các metric nền cho panel CPU/RAM/Network đều có dữ liệu; chụp minh chứng ở Giai đoạn 7.
 
 ### E8 - Dashboard cá nhân
 
@@ -396,14 +396,14 @@ sum by(instance) (
 
 Checklist:
 
-- [ ] Dashboard có đúng tên `System Health of 52400141`.
-- [ ] Có ít nhất ba panel CPU, Memory và Network.
-- [ ] Đơn vị CPU/Memory là phần trăm.
-- [ ] Network dùng đơn vị bytes/s hoặc bits/s nhất quán.
-- [ ] Cả ba panel có dữ liệu.
-- [ ] Export JSON vào `dashboards/system-health-52400141.json`.
-- [ ] Xóa UID/mapping môi trường không cần thiết nếu làm JSON khó import.
-- [ ] Khởi tạo Grafana mới từ volume rỗng và xác nhận dashboard tự xuất hiện.
+- [x] Dashboard có đúng tên `System Health of 52400141`.
+- [x] Có đúng ba panel CPU, Memory và Network.
+- [x] Đơn vị CPU/Memory là phần trăm.
+- [x] Network dùng đơn vị bytes/s (`Bps`) nhất quán.
+- [x] Cả ba panel có dữ liệu qua datasource proxy của Grafana.
+- [x] Export JSON vào `dashboards/system-health-52400141.json`.
+- [x] Dùng UID dashboard ổn định và loại bỏ mapping datasource phụ thuộc môi trường.
+- [x] Khởi tạo Grafana mới từ volume rỗng và xác nhận hai dashboard tự xuất hiện.
 
 ### Commit đề xuất
 

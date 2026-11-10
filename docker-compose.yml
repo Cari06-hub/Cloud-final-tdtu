@@ -55,6 +55,28 @@ services:
         ipv4_address: 10.10.10.61
     restart: unless-stopped
 
+  monitoring-grafana-dashboard-server:
+    image: grafana/grafana:13.3.0
+    container_name: monitoring-grafana-dashboard-server
+    depends_on:
+      - monitoring-prometheus-server
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:?Set GF_SECURITY_ADMIN_PASSWORD in .env}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring-grafana-dashboard-server/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./monitoring-grafana-dashboard-server/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring-grafana-dashboard-server/dashboards:/var/lib/grafana/dashboards:ro
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.62
+    restart: unless-stopped
+
 networks:
   cloud-net:
     name: cloud-net
@@ -65,3 +87,4 @@ networks:
 
 volumes:
   prometheus_data:
+  grafana_data:
