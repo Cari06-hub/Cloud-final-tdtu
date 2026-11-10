@@ -1,0 +1,44 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.aws/
+secrets/
+
+# Local service data - use Docker named volumes for final integration
+object-storage-server/data/
+relational-database-server/data/
+monitoring-prometheus-server/data/
+monitoring-grafana-dashboard-server/data/
+authentication-identity-server/data/
+
+# Logs, caches and temporary files
+*.log
+tmp/
+temp/
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE and operating-system metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Terraform and infrastructure state, if introduced later
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Local backup files
+*.bak
+*.swp
+*~
