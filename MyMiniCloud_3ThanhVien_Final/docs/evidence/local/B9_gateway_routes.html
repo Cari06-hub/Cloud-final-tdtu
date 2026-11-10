@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>B9 - API Gateway Routes</title>
+<style>
+body{margin:0;background:#0c111b;color:#e6edf3;font:20px/1.5 Consolas,monospace}
+header{padding:28px 42px;background:#161b22;border-bottom:1px solid #30363d}
+h1{margin:0 0 8px;color:#58a6ff;font:700 30px Segoe UI,sans-serif}
+.meta{color:#8b949e;font:16px Segoe UI,sans-serif}
+main{padding:28px 42px}section{margin:0 0 24px;border:1px solid #30363d;border-radius:8px;overflow:hidden}
+.prompt{padding:14px 18px;background:#21262d;color:#7ee787;white-space:pre-wrap}
+pre{margin:0;padding:18px;background:#0d1117;color:#f0f6fc;white-space:pre-wrap;word-break:break-word}
+.pass{color:#3fb950}
+</style>
+</head>
+<body><header><h1>B9 - API Gateway Routes</h1><div class="meta">Local evidence - 2026-11-11 00:26:43 +07:00 - branch Nguyen</div></header>
+<main><section><div class='prompt'>PS D:\CLOUD\Cloud-final-tdtu&gt; curl -I http://localhost/</div><pre>HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 10 Nov 2026 17:26:43 GMT
+Content-Type: text/html
+Content-Length: 300
+Connection: keep-alive
+Last-Modified: Tue, 10 Nov 2026 04:50:17 GMT
+ETag: &quot;6af2a289-12c&quot;
+Accept-Ranges: bytes
+</pre></section>
+<section><div class='prompt'>PS D:\CLOUD\Cloud-final-tdtu&gt; curl http://localhost/api/hello</div><pre>{&quot;message&quot;:&quot;Hello from App Server!&quot;}</pre></section>
+<section><div class='prompt'>PS D:\CLOUD\Cloud-final-tdtu&gt; curl -I http://localhost/auth/</div><pre>HTTP/1.1 302 Found
+Server: nginx
+Date: Tue, 10 Nov 2026 17:26:43 GMT
+Location: http://localhost/auth/admin/
+Connection: keep-alive
+Referrer-Policy: no-referrer
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-Robots-Tag: none
+</pre></section></main></body></html>

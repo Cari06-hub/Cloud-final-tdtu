@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Hiểu mô hình cấp phát tài nguyên theo nhu cầu, khả năng co giãn và các lớp dịch vụ Cloud.">
+  <title>Cloud Computing cơ bản | MyMiniCloud</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner">
+    <a class="brand" href="../index.html">MyMini<span>Cloud</span></a>
+    <nav class="site-nav" aria-label="Điều hướng chính">
+      <a href="../index.html">Trang chủ</a>
+      <a href="index.html">Blog công nghệ</a>
+    </nav></div></header>
+  <main class="container">
+    <nav class="breadcrumb" aria-label="Đường dẫn trang">
+      <a href="../index.html">Trang chủ</a> / <a href="index.html">Blog</a> / Cloud Computing cơ bản
+    </nav>
+    <div class="article-header"><span class="eyebrow">Bài 02 · Cloud fundamentals</span>
+      <h1>Cloud Computing cơ bản</h1><p class="lead">Hiểu mô hình cấp phát tài nguyên theo nhu cầu, khả năng co giãn và các lớp dịch vụ Cloud.</p>
+      <p class="article-meta">MyMiniCloud • Bài viết kiến thức Cloud Computing</p>
+    </div>
+    <div class="article-grid">
+      <article class="article">
+        <img class="article-hero" src="../images/cloud.jpg" alt="Đám mây kết nối các tài nguyên máy chủ và lưu trữ">
+        <section id="dinhnghia">
+          <h2>1. Cloud Computing là gì?</h2>
+          <p>Cloud Computing là cách cung cấp các tài nguyên tính toán như máy chủ, lưu trữ, mạng và cơ sở dữ liệu qua Internet. Thay vì đầu tư hạ tầng vật lý ngay từ đầu, người dùng có thể thuê tài nguyên và quản lý chúng qua nền tảng Cloud.</p><p>Những tài nguyên này vẫn chạy trên các máy chủ thật trong trung tâm dữ liệu; điểm khác biệt nằm ở khả năng cấp phát, quản trị và mở rộng linh hoạt.</p>
+        </section>
+        <section id="ondemand">
+          <h2>2. Tài nguyên theo nhu cầu (On-demand)</h2>
+          <p>Với cơ chế <strong>on-demand self-service</strong>, người dùng có thể tạo máy chủ ảo khi cần mà không phải chờ lắp đặt phần cứng. Ví dụ, một nhóm có thể tạo EC2 Ubuntu để thử hệ thống MyMiniCloud, dừng tài nguyên khi không dùng và kiểm soát chi phí.</p><div class="info-box"><strong>Phân biệt:</strong> on-demand là khả năng cấp phát khi cần; tính phí cụ thể tùy loại tài nguyên, thời gian sử dụng và chính sách nhà cung cấp.</div>
+        </section>
+        <section id="elastic">
+          <h2>3. Elasticity và scalability</h2>
+          <p><strong>Scalability</strong> là khả năng tăng năng lực xử lý; có thể nâng cấu hình một máy (scale up) hoặc thêm máy (scale out). <strong>Elasticity</strong> nhấn mạnh khả năng tăng giảm tài nguyên theo nhu cầu thực tế.</p><p>Trong MyMiniCloud, bài Round Robin dùng hai Web Server để minh họa phân phối yêu cầu. Đây là mô hình học tập về cân bằng tải, chưa phải hệ thống tự động mở rộng.</p>
+        </section>
+        <section id="service">
+          <h2>4. Ba mô hình dịch vụ phổ biến</h2>
+          <table class="content-table"><tr><th>Mô hình</th><th>Nhà cung cấp quản lý</th><th>Ví dụ</th></tr><tr><td>IaaS</td><td>Máy chủ vật lý, mạng, ảo hóa</td><td>Amazon EC2</td></tr><tr><td>PaaS</td><td>Nền tảng chạy và triển khai ứng dụng</td><td>Dịch vụ triển khai ứng dụng quản lý sẵn</td></tr><tr><td>SaaS</td><td>Ứng dụng hoàn chỉnh</td><td>Email, công cụ văn phòng trực tuyến</td></tr></table><p>Với IaaS, nhóm vẫn cần quản lý hệ điều hành, Docker và cấu hình ứng dụng trên EC2.</p>
+        </section>
+        <section id="minicloud">
+          <h2>5. Liên hệ với bài thực hành MyMiniCloud</h2>
+          <ol><li>Tách Web, API, database và xác thực thành các service độc lập.</li><li>Kết nối nội bộ qua Docker Network <code>cloud-net</code>.</li><li>Dùng Docker Compose để điều phối môi trường local.</li><li>Triển khai lên EC2 Ubuntu và kiểm tra qua Public IP.</li></ol><p>MyMiniCloud mô phỏng <em>kiến trúc thành phần</em> của nền tảng Cloud, không phải một Cloud Platform thương mại đầy đủ.</p>
+        </section>
+        <nav class="post-nav" aria-label="Điều hướng bài viết">
+          <a class="button button-outline" href="index.html">← Về danh sách blog</a>
+          <a class="button" href="../index.html">Về trang chủ</a>
+        </nav>
+      </article>
+      <aside class="sidebar" aria-label="Mục lục bài viết">
+        <h2>Nội dung bài viết</h2>
+        <a href="#dinhnghia">1. Cloud Computing là gì?</a>
+        <a href="#ondemand">2. Tài nguyên theo nhu cầu (On-demand)</a>
+        <a href="#elastic">3. Elasticity và scalability</a>
+        <a href="#service">4. Ba mô hình dịch vụ phổ biến</a>
+        <a href="#minicloud">5. Liên hệ với bài thực hành MyMiniCloud</a>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner">
+    <span>© MyMiniCloud – Bài thực hành Cloud Computing</span>
+    <a href="index.html">Khám phá các bài blog khác</a>
+  </div></footer>
+</body>
+</html>

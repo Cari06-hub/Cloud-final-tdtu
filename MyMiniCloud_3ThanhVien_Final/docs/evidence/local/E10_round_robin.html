@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>E10 - Nginx Round Robin</title>
+<style>
+body{margin:0;background:#0c111b;color:#e6edf3;font:20px/1.5 Consolas,monospace}
+header{padding:28px 42px;background:#161b22;border-bottom:1px solid #30363d}
+h1{margin:0 0 8px;color:#58a6ff;font:700 30px Segoe UI,sans-serif}
+.meta{color:#8b949e;font:16px Segoe UI,sans-serif}
+main{padding:28px 42px}section{margin:0 0 24px;border:1px solid #30363d;border-radius:8px;overflow:hidden}
+.prompt{padding:14px 18px;background:#21262d;color:#7ee787;white-space:pre-wrap}
+pre{margin:0;padding:18px;background:#0d1117;color:#f0f6fc;white-space:pre-wrap;word-break:break-word}
+.pass{color:#3fb950}
+</style>
+</head>
+<body><header><h1>E10 - Nginx Round Robin</h1><div class="meta">Local evidence - 2026-11-11 00:26:43 +07:00 - branch Nguyen</div></header>
+<main><section><div class='prompt'>PS D:\CLOUD\Cloud-final-tdtu&gt; 1..6 | ForEach-Object { curl http://localhost/ | Select-String &#39;Server [12]&#39; }</div><pre>Request 1 -&gt; Server 1
+Request 2 -&gt; Server 2
+Request 3 -&gt; Server 1
+Request 4 -&gt; Server 2
+Request 5 -&gt; Server 1
+Request 6 -&gt; Server 2</pre></section></main></body></html>

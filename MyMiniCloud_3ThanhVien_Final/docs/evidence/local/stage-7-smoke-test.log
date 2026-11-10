@@ -1,0 +1,28 @@
+MyMiniCloud integration smoke test
+Time: 2026-11-11T00:30:45+07:00
+Environment: .env.example
+------------------------------------------------------------
+[PASS] B1  Home and Blog return HTTP 200
+[PASS] B2  /hello direct and Gateway JSON match
+[PASS] B3  MariaDB notes table contains sample data
+[PASS] B4  Keycloak admin API finds enabled sv01
+[PASS] B5  MinIO demo/index.html exists
+[PASS] B6  DNS Web record is 10.10.10.10
+[PASS] B7  Node target and CPU metric have data
+[PASS] B8  Node Exporter Full and CPU/RAM/Network data exist
+[PASS] B9  Gateway root, API and auth routes pass
+[PASS] B10 All eleven containers are reachable
+[PASS] E1  Three blog articles have images and Home links
+[PASS] E2  /student returns five JSON students
+[PASS] E3  /students-db returns five database students
+[PASS] E4  sv01/sv02 tokens, audience and /secure pass
+[PASS] E5  Public avatar and document object pass
+[PASS] E6  DNS app/minio/keycloak records pass
+[PASS] E7  Prometheus Web target is UP
+[PASS] E8  Personal Grafana dashboard has three panels
+[PASS] E9  Gateway /student/ returns five students
+[PASS] E10 Six requests alternate Server 1 and Server 2
+------------------------------------------------------------
+PASS: 20 / 20
+FAIL: 0 / 20
+Integration smoke test PASSED.
