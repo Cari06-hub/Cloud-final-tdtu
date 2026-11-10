@@ -18,6 +18,8 @@ Baseline bảo mật, quy tắc tích hợp nhánh TV1 và checklist thay creden
 
 Nguồn file, các thay đổi chuẩn hóa và kết quả kiểm tra Giai đoạn 2 được ghi tại [docs/stage-2-integration-audit.md](docs/stage-2-integration-audit.md).
 
+Cấu hình, quyết định phiên bản và kết quả nghiệm thu Prometheus/Node Exporter được ghi tại [docs/stage-3-monitoring-audit.md](docs/stage-3-monitoring-audit.md).
+
 ## Thành viên và phạm vi
 
 | Thành viên | Phạm vi chính |

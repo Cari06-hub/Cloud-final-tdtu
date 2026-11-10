@@ -1,0 +1,67 @@
+name: ${COMPOSE_PROJECT_NAME:-myminicloud}
+
+services:
+  # Stage 3 includes Web 1 because Prometheus E7 scrapes its /metrics endpoint.
+  # Remaining MyMiniCloud services are added during the final integration stage.
+  web-frontend-server:
+    build:
+      context: ./web-frontend-server
+    image: myminicloud-web:stage3
+    container_name: web-frontend-server
+    ports:
+      - "8080:80"
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.10
+    restart: unless-stopped
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:v1.12.1
+    container_name: node-exporter
+    command:
+      - --path.rootfs=/host
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($$|/)
+    pid: host
+    volumes:
+      - type: bind
+        source: /
+        target: /host
+        read_only: true
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.60
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  monitoring-prometheus-server:
+    image: prom/prometheus:v3.13.5
+    container_name: monitoring-prometheus-server
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+      - --web.enable-lifecycle
+    depends_on:
+      - node-exporter
+      - web-frontend-server
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring-prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.61
+    restart: unless-stopped
+
+networks:
+  cloud-net:
+    name: cloud-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
+
+volumes:
+  prometheus_data:

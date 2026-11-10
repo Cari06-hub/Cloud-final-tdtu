@@ -292,15 +292,15 @@ scrape_configs:
 
 ### Checklist triển khai
 
-- [ ] Thêm service `node-exporter`.
-- [ ] Thêm service `monitoring-prometheus-server`.
-- [ ] Mount `prometheus.yml` read-only.
-- [ ] Thêm volume `prometheus_data`.
-- [ ] Cả hai service vào `cloud-net`.
-- [ ] Dùng `restart: unless-stopped`.
-- [ ] Publish `9090:9090` khi demo local.
-- [ ] Không mở `9100` công khai trên EC2.
-- [ ] Kiểm tra cấu hình Prometheus trước khi chạy.
+- [x] Thêm service `node-exporter` dùng image `v1.12.1`.
+- [x] Thêm service `monitoring-prometheus-server` dùng Prometheus `v3.13.5` LTS.
+- [x] Mount `prometheus.yml` read-only.
+- [x] Thêm volume `prometheus_data`.
+- [x] Cả hai service vào `cloud-net` với IP tĩnh `.60` và `.61`.
+- [x] Dùng `restart: unless-stopped`.
+- [x] Publish `9090:9090` khi demo local.
+- [x] Không publish `9100`; Node Exporter chỉ truy cập qua `cloud-net`.
+- [x] `promtool check config` trả SUCCESS trước khi chạy.
 
 ### Kiểm thử B7
 
@@ -308,9 +308,9 @@ scrape_configs:
 curl http://localhost:9090/-/ready
 ```
 
-- [ ] Truy cập `http://localhost:9090/targets`.
-- [ ] Target `node-exporter:9100` là `UP`.
-- [ ] Truy vấn `node_cpu_seconds_total` có dữ liệu.
+- [x] Prometheus sẵn sàng tại `http://localhost:9090` và Targets API hoạt động.
+- [x] Target `node-exporter:9100` là `UP`.
+- [x] Truy vấn `node_cpu_seconds_total` trả 96 series trong lần nghiệm thu.
 
 ### Kiểm thử E7
 
@@ -318,9 +318,9 @@ curl http://localhost:9090/-/ready
 curl http://localhost:8080/metrics
 ```
 
-- [ ] Endpoint `/metrics` trả HTTP 200.
-- [ ] Target `web-frontend-server:80` là `UP`.
-- [ ] Metric `web_up` có giá trị `1`.
+- [x] Endpoint `/metrics` trả HTTP 200.
+- [x] Target `web-frontend-server:80` là `UP`.
+- [x] Metric `web_up` có giá trị `1`.
 
 ### Commit đề xuất
 
