@@ -131,11 +131,19 @@ $queries = @{
     Network = 'sum by(instance) (rate(node_network_receive_bytes_total{device!="lo"}[5m]))'
 }
 foreach ($name in $queries.Keys) {
-    # PowerShell unwraps a single pipeline object. Force array semantics so a
-    # valid Prometheus vector containing one series is counted as one, not null.
-    $series = @(Invoke-GrafanaPrometheusQuery -Query $queries[$name])
+    $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
+    $series = @()
+    do {
+        # PowerShell unwraps a single pipeline object. Force array semantics so
+        # a valid vector containing one series is counted as one, not null.
+        $series = @(Invoke-GrafanaPrometheusQuery -Query $queries[$name])
+        if ($series.Count -gt 0) {
+            break
+        }
+        Start-Sleep -Seconds 2
+    } while ((Get-Date) -lt $deadline)
     if ($series.Count -lt 1) {
-        throw "$name query returned no data through Grafana."
+        throw "$name query returned no data through Grafana within $TimeoutSeconds seconds."
     }
     Write-Host "  PASS: $name returned $($series.Count) series"
 }

@@ -5,6 +5,7 @@
 # ===========================================================
 
 NETWORK="cloud-net"
+BUSYBOX_IMAGE="busybox:1.38.0"
 
 CONTAINERS=(
     "web-frontend-server"
@@ -35,7 +36,7 @@ for container in "${CONTAINERS[@]}"; do
     echo "[TEST] Ping tới: $container"
     echo "----------------------------------------------"
 
-    docker run --rm --network "$NETWORK" busybox ping -c 3 "$container"
+    docker run --rm --network "$NETWORK" "$BUSYBOX_IMAGE" ping -c 3 "$container"
 
     if [ $? -eq 0 ]; then
         echo "[✔] $container – KẾT NỐI THÀNH CÔNG"

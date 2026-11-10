@@ -507,17 +507,17 @@ feat: add gateway routes and round-robin load balancing
 
 ### Danh sách 11 container
 
-- [ ] `web-frontend-server`.
-- [ ] `web-frontend-server2`.
-- [ ] `application-backend-server`.
-- [ ] `relational-database-server`.
-- [ ] `authentication-identity-server`.
-- [ ] `object-storage-server`.
-- [ ] `internal-dns-server`.
-- [ ] `node-exporter`.
-- [ ] `monitoring-prometheus-server`.
-- [ ] `monitoring-grafana-dashboard-server`.
-- [ ] `api-gateway-proxy-server`.
+- [x] `web-frontend-server`.
+- [x] `web-frontend-server2`.
+- [x] `application-backend-server`.
+- [x] `relational-database-server`.
+- [x] `authentication-identity-server`.
+- [x] `object-storage-server`.
+- [x] `internal-dns-server`.
+- [x] `node-exporter`.
+- [x] `monitoring-prometheus-server`.
+- [x] `monitoring-grafana-dashboard-server`.
+- [x] `api-gateway-proxy-server`.
 
 ### Network và IPAM
 
@@ -549,17 +549,17 @@ IP phải khớp zone DNS:
 
 Trước khi dùng subnet:
 
-- [ ] Kiểm tra `docker network ls`.
-- [ ] Kiểm tra `docker network inspect cloud-net` nếu đã tồn tại.
-- [ ] Kiểm tra route/VPN không xung đột `10.10.10.0/24`.
+- [x] Kiểm tra `docker network ls`.
+- [x] Kiểm tra `docker network inspect cloud-net`; subnet là `10.10.10.0/24`.
+- [x] Kiểm tra route/VPN không có route host chính xác xung đột `10.10.10.0/24`.
 
 ### Volume bắt buộc
 
-- [ ] `mariadb_data`.
-- [ ] `keycloak_data` hoặc realm import tương đương.
-- [ ] `minio_data`.
-- [ ] `prometheus_data`.
-- [ ] `grafana_data`.
+- [x] `mariadb_data`.
+- [x] `keycloak_data`.
+- [x] `minio_data`.
+- [x] `prometheus_data`.
+- [x] `grafana_data`.
 
 ### Kiểm tra Compose
 
@@ -570,13 +570,13 @@ docker compose up -d
 docker compose ps
 ```
 
-- [ ] Không service nào `Exited`.
-- [ ] Không service nào restart liên tục.
-- [ ] Tất cả service nằm trong `cloud-net`.
-- [ ] Tất cả dùng `restart: unless-stopped`.
-- [ ] Không có password hard-code trong output `docker compose config` ngoài giá trị lấy từ `.env` local.
-- [ ] MariaDB, Keycloak, MinIO và Grafana giữ dữ liệu sau `docker compose restart`.
-- [ ] Không dùng `docker rm -f $(docker ps -aq)`.
+- [x] Không service nào `Exited`; 11/11 container Running.
+- [x] Không service nào restart liên tục; `RestartCount=0` trong lần nghiệm thu.
+- [x] Tất cả service nằm trong `cloud-net` với đúng IP tĩnh.
+- [x] Tất cả dùng `restart: unless-stopped`.
+- [x] Không có password hard-code; Compose chỉ nội suy giá trị từ env file local.
+- [x] MariaDB, Keycloak, MinIO và Grafana giữ dữ liệu/chức năng sau `docker compose restart`.
+- [x] Không dùng lệnh xóa container diện rộng `docker rm -f $(docker ps -aq)`.
 
 ### Commit đề xuất
 

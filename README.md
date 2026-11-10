@@ -24,6 +24,31 @@ Cấu hình provisioning, dashboard B8/E8 và kết quả kiểm thử Grafana t
 
 Cấu hình Gateway, các route B9/E9 và kết quả Round Robin E10 được ghi tại [docs/stage-5-gateway-audit.md](docs/stage-5-gateway-audit.md).
 
+Compose tích hợp đủ 11 container, IPAM, DNS, persistence và kết quả hồi quy Giai đoạn 6 được ghi tại [docs/stage-6-compose-audit.md](docs/stage-6-compose-audit.md).
+
+## Khởi động stack tích hợp
+
+```bash
+cp .env.example .env
+# Thay toàn bộ REPLACE_* trong .env bằng giá trị mạnh chỉ dùng ở local.
+docker compose --env-file .env config --quiet
+docker compose --env-file .env build
+docker compose --env-file .env up -d
+docker compose --env-file .env ps
+```
+
+Nghiệm thu tự động trên PowerShell:
+
+```powershell
+./scripts/test-compose.ps1 `
+  -EnvFile .env `
+  -GrafanaAdminUser $env:GF_SECURITY_ADMIN_USER `
+  -GrafanaAdminPassword $env:GF_SECURITY_ADMIN_PASSWORD
+```
+
+Không chạy `docker compose down -v` nếu muốn giữ database, Realm Keycloak,
+bucket MinIO, dữ liệu Prometheus và Grafana.
+
 ## Thành viên và phạm vi
 
 | Thành viên | Phạm vi chính |
