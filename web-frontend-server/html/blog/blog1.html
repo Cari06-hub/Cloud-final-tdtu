@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tìm hiểu cách Docker đóng gói, chạy và kết nối các dịch vụ của MyMiniCloud.">
+  <title>Docker là gì? | MyMiniCloud</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner">
+    <a class="brand" href="../index.html">MyMini<span>Cloud</span></a>
+    <nav class="site-nav" aria-label="Điều hướng chính">
+      <a href="../index.html">Trang chủ</a>
+      <a href="index.html">Blog công nghệ</a>
+    </nav></div></header>
+  <main class="container">
+    <nav class="breadcrumb" aria-label="Đường dẫn trang">
+      <a href="../index.html">Trang chủ</a> / <a href="index.html">Blog</a> / Docker là gì?
+    </nav>
+    <div class="article-header"><span class="eyebrow">Bài 01 · Containerization</span>
+      <h1>Docker là gì?</h1><p class="lead">Tìm hiểu cách Docker đóng gói, chạy và kết nối các dịch vụ của MyMiniCloud.</p>
+      <p class="article-meta">MyMiniCloud • Bài viết kiến thức Cloud Computing</p>
+    </div>
+    <div class="article-grid">
+      <article class="article">
+        <img class="article-hero" src="../images/docker.jpg" alt="Sơ đồ các container độc lập dùng chung nền tảng Docker">
+        <section id="docker">
+          <h2>1. Docker giải quyết vấn đề gì?</h2>
+          <p>Khi triển khai ứng dụng trên nhiều máy, phiên bản thư viện, cấu hình hệ điều hành hoặc lệnh khởi động khác nhau có thể gây lỗi. Docker đóng gói ứng dụng cùng các phụ thuộc cần thiết vào một <strong>image</strong>, sau đó khởi chạy image thành <strong>container</strong>.</p><p>Container tách biệt tiến trình và môi trường chạy, nhưng vẫn chia sẻ nhân hệ điều hành của máy chủ. Điều này giúp việc phát triển, kiểm thử và triển khai nhất quán hơn.</p>
+        </section>
+        <section id="khainiem">
+          <h2>2. Image, container và Dockerfile</h2>
+          <table class="content-table"><tr><th>Thành phần</th><th>Vai trò</th></tr><tr><td>Dockerfile</td><td>Các bước hướng dẫn để tạo image.</td></tr><tr><td>Image</td><td>Gói ứng dụng và cấu hình dùng làm mẫu khởi chạy.</td></tr><tr><td>Container</td><td>Phiên bản chạy thực tế của một image.</td></tr><tr><td>Volume</td><td>Lưu trữ dữ liệu không phụ thuộc vòng đời container.</td></tr></table><div class="info-box"><strong>Ví dụ:</strong> Web Nginx và Flask dùng image xây riêng; MariaDB có thể dùng image chính thức và volume để lưu dữ liệu.</div>
+        </section>
+        <section id="compose">
+          <h2>3. Docker Compose và mạng nội bộ</h2>
+          <p>Docker Compose khai báo nhiều dịch vụ trong một file YAML, bao gồm image, port, biến môi trường, volume và network. Trong MyMiniCloud, các dịch vụ kết nối chung vào mạng <strong>cloud-net</strong>.</p><p>Trong cùng Docker Network, Flask truy cập database theo tên <code>relational-database-server</code> và cổng nội bộ <code>3306</code>. Không dùng <code>localhost</code> vì nó trỏ về chính container Flask.</p><pre class="code-sample">docker compose up -d --build<br>docker compose ps</pre>
+        </section>
+        <section id="thucte">
+          <h2>4. Docker được ứng dụng trong MyMiniCloud thế nào?</h2>
+          <ol><li>Nginx phục vụ trang chủ và ba bài blog HTML.</li><li>Flask cung cấp các API <code>/hello</code>, <code>/student</code> và <code>/students-db</code>.</li><li>MariaDB lưu dữ liệu quan hệ và cho phép Flask truy vấn qua mạng Docker.</li><li>Khi tích hợp, Gateway định tuyến request; Prometheus theo dõi trạng thái các service.</li></ol><p>Nhờ mô hình này, nhóm có thể phát triển độc lập từng phần và ghép thành hệ thống bằng Docker Compose.</p>
+        </section>
+        <section id="ketluan">
+          <h2>5. Những lợi ích và lưu ý</h2>
+          <ul><li><strong>Nhất quán:</strong> image giúp giảm sai khác giữa máy cá nhân và máy chủ EC2.</li><li><strong>Dễ tích hợp:</strong> các container trao đổi qua tên service.</li><li><strong>Dễ quản lý:</strong> có thể xem log và khởi động lại từng dịch vụ.</li></ul><div class="info-box"><strong>Lưu ý:</strong> Docker không tự động bảo mật ứng dụng. Mật khẩu, cổng mạng và quyền truy cập vẫn cần cấu hình cẩn thận.</div>
+        </section>
+        <nav class="post-nav" aria-label="Điều hướng bài viết">
+          <a class="button button-outline" href="index.html">← Về danh sách blog</a>
+          <a class="button" href="../index.html">Về trang chủ</a>
+        </nav>
+      </article>
+      <aside class="sidebar" aria-label="Mục lục bài viết">
+        <h2>Nội dung bài viết</h2>
+        <a href="#docker">1. Docker giải quyết vấn đề gì?</a>
+        <a href="#khainiem">2. Image, container và Dockerfile</a>
+        <a href="#compose">3. Docker Compose và mạng nội bộ</a>
+        <a href="#thucte">4. Docker được ứng dụng trong MyMiniCloud thế nào?</a>
+        <a href="#ketluan">5. Những lợi ích và lưu ý</a>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner">
+    <span>© MyMiniCloud – Bài thực hành Cloud Computing</span>
+    <a href="index.html">Khám phá các bài blog khác</a>
+  </div></footer>
+</body>
+</html>

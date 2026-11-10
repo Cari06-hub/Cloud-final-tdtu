@@ -1,0 +1,76 @@
+##############################################################
+# Docker Compose - TV2 (Tuấn Anh - MSSV đại diện nhóm: 52400001)
+# 3 services: Keycloak, MinIO, Bind9 DNS
+# Network: cloud-net
+# File này dùng để kiểm thử độc lập phần TV2. Compose tích hợp cuối do TV3 quản lý.
+##############################################################
+
+services:
+  # ============================================================
+  # 1. Authentication & Identity Server (Keycloak)
+  # ============================================================
+  authentication-identity-server:
+    image: quay.io/keycloak/keycloak:26.8.2
+    container_name: authentication-identity-server
+    command: ["start-dev"]
+    ports:
+      - "8081:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Set KEYCLOAK_ADMIN_PASSWORD in .env}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.40
+    restart: unless-stopped
+
+  # ============================================================
+  # 2. Object Storage Server (MinIO via pinned Bitnami legacy image)
+  # ============================================================
+  object-storage-server:
+    image: bitnamilegacy/minio:2024.6.13
+    container_name: object-storage-server
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
+    volumes:
+      - minio_data:/bitnami/minio/data
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.30
+    restart: unless-stopped
+
+  # ============================================================
+  # 3. Internal DNS Server (Bind9)
+  # ============================================================
+  internal-dns-server:
+    image: internetsystemsconsortium/bind9:9.18
+    container_name: internal-dns-server
+    ports:
+      - "1053:53/udp"
+      - "1053:53/tcp"
+    volumes:
+      - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
+      - ./internal-dns-server/zones:/etc/bind/zones:ro
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.50
+    restart: unless-stopped
+
+networks:
+  cloud-net:
+    name: cloud-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
+
+volumes:
+  keycloak_data:
+  minio_data:

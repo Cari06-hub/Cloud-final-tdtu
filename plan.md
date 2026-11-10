@@ -230,35 +230,35 @@ chore: initialize secure integration scaffold
 
 ### Tích hợp TV1
 
-- [ ] Lấy `web-frontend-server/`.
-- [ ] Lấy `application-backend-server/`.
-- [ ] Lấy `relational-database-server/`.
-- [ ] Không lấy file `.env` đã commit.
-- [ ] Web 1 hiển thị `Server 1`.
-- [ ] Web 2 hiển thị `Server 2`.
-- [ ] `/metrics` trả HTTP 200 và metric `web_up 1`.
-- [ ] Flask nhận biến DB và OIDC từ environment.
-- [ ] SQL có `minicloud.notes` và `studentdb.students`.
-- [ ] User MariaDB có quyền trên `studentdb`.
+- [x] Lấy `web-frontend-server/` bằng allowlist từ `origin/Quang@6885541`.
+- [x] Lấy `application-backend-server/` bằng allowlist từ `origin/Quang@6885541`.
+- [x] Lấy `relational-database-server/` bằng allowlist từ `origin/Quang@6885541`.
+- [x] Không lấy file `.env` đã commit.
+- [x] Web 1 hiển thị `Server 1`.
+- [x] Web 2 hiển thị `Server 2`.
+- [x] `/metrics` có cấu hình HTTP 200 và metric `web_up 1`; runtime test chờ Docker.
+- [x] Flask nhận biến DB và OIDC từ environment.
+- [x] SQL có `minicloud.notes` và `studentdb.students`.
+- [x] User MariaDB có quyền trên `studentdb`.
 
 ### Tích hợp TV2
 
-- [ ] Lấy `authentication-identity-server/`.
-- [ ] Lấy `object-storage-server/`.
-- [ ] Lấy `internal-dns-server/`.
-- [ ] Lấy `scripts/ping-test.sh`.
-- [ ] Thay mật khẩu hard-code bằng `${TEN_BIEN}`.
-- [ ] Chốt một image MinIO thống nhất giữa Compose và tài liệu.
-- [ ] Thêm volume MinIO.
-- [ ] Thêm volume Keycloak hoặc realm import có thể tái tạo.
-- [ ] Kiểm tra Realm, user, client và Audience mapper.
-- [ ] Đối chiếu zone DNS với IPAM Compose.
+- [x] Lấy `authentication-identity-server/` bằng allowlist từ TV2.
+- [x] Lấy `object-storage-server/` bằng allowlist từ TV2.
+- [x] Lấy `internal-dns-server/` bằng allowlist từ TV2.
+- [x] Lấy `scripts/ping-test.sh`, PowerShell ping test và token test bằng allowlist.
+- [x] Thay mật khẩu hard-code bằng biến môi trường.
+- [x] Chốt `bitnamilegacy/minio:2024.6.13` thống nhất giữa Compose và tài liệu.
+- [x] Thêm `minio_data:/bitnami/minio/data`.
+- [x] Thêm `keycloak_data:/opt/keycloak/data`.
+- [ ] Kiểm tra runtime Realm, user, client và Audience mapper khi Docker chạy.
+- [x] Đối chiếu zone DNS với IPAM Compose; sửa NS thành `10.10.10.50`.
 
 ### Quy tắc tích hợp
 
-- [ ] TV3 không tự viết lại mã nghiệp vụ thuộc TV1/TV2 nếu chưa xác nhận.
-- [ ] Thay đổi tên service, port hoặc environment phải báo chủ sở hữu.
-- [ ] Sau mỗi nhóm thay đổi, chạy `docker compose config --quiet`.
+- [x] TV3 chỉ chuẩn hóa giao diện tích hợp/bảo mật; thay đổi được ghi trong audit để chủ sở hữu review.
+- [x] Không đổi tên service hoặc port; thay đổi environment/persistence đã được ghi vào hợp đồng và handoff.
+- [x] `docker compose --env-file .env.example -f docker-compose.tv2.yml config` đã đạt.
 
 ### Commit đề xuất
 

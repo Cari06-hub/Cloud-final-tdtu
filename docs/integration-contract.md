@@ -30,8 +30,8 @@ Không thay đổi hợp đồng sau khi đã khóa nếu chưa có xác nhận 
 | Network | `cloud-net` | Đã khóa | Đề bài và phân công |
 | Subnet | `10.10.10.0/24` | Tạm khóa | Khớp các bản ghi DNS `10.10.10.x`; cần kiểm tra lại khi Docker daemon chạy |
 | Gateway host port | `80` | Đã khóa | Đề bài B9 và phân công |
-| Image MinIO | Chưa chốt | Chờ TV2 xác nhận | Compose và README TV2 hiện không thống nhất |
-| Persistence Keycloak | Named volume hoặc realm import | Chờ TV2 chọn cách thực hiện | Cấu hình hiện tại có nguy cơ mất Realm khi recreate |
+| Image MinIO | `bitnamilegacy/minio:2024.6.13` | Đã khóa cho bản tích hợp, chờ TV2 review | Manifest hợp lệ; tài liệu và Compose đã thống nhất |
+| Persistence Keycloak | `keycloak_data:/opt/keycloak/data` | Đã khóa cho bản tích hợp, chờ TV2 review | Giữ Realm khi recreate container |
 
 Nếu trưởng nhóm đổi MSSV đại diện nhóm, phải cập nhật đồng thời:
 
@@ -213,8 +213,8 @@ Các dữ liệu sau phải sống qua `docker compose restart` và, khi phù h�
 | Dịch vụ | Volume/biện pháp |
 |---|---|
 | MariaDB | `mariadb_data` |
-| Keycloak | `keycloak_data` hoặc realm import được kiểm thử |
-| MinIO | `minio_data` |
+| Keycloak | `keycloak_data:/opt/keycloak/data` |
+| MinIO | `minio_data:/bitnami/minio/data` |
 | Prometheus | `prometheus_data` |
 | Grafana | `grafana_data` và dashboard provisioning trong Git |
 

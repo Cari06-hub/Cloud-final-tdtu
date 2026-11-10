@@ -70,9 +70,11 @@ Kết quả cần ghi lại:
 
 1. Realm cuối là realm_52400001, gồm sv01, sv02, client flask-app, Direct
    Access Grants và Audience mapper flask-app.
-2. Chọn một image MinIO duy nhất; compose và README hiện đang ghi khác nhau.
-3. Xác nhận command khởi động, data path và named volume cho MinIO.
-4. Chọn persistence Keycloak: named volume hoặc realm import đã kiểm thử.
+2. Review lựa chọn tích hợp `bitnamilegacy/minio:2024.6.13`; manifest đã được
+   kiểm tra và Compose/README đã thống nhất.
+3. Xác nhận Bitnami entrypoint mặc định cùng data path
+   `/bitnami/minio/data` và named volume `minio_data`.
+4. Review persistence Keycloak `keycloak_data:/opt/keycloak/data`.
 5. Xác nhận DNS A record:
    web-frontend-server=10.10.10.10,
    app-backend=10.10.10.20,
@@ -89,10 +91,10 @@ Realm, endpoint hoặc cấu trúc volume.
 Kết quả cần ghi lại:
 
 - [ ] Realm và MSSV đại diện nhóm được xác nhận.
-- [ ] Image MinIO cuối được xác nhận: `________________`.
-- [ ] Command MinIO cuối được xác nhận: `________________`.
-- [ ] MinIO data path/volume được xác nhận: `________________`.
-- [ ] Phương án persistence Keycloak được xác nhận: `________________`.
+- [ ] Image MinIO `bitnamilegacy/minio:2024.6.13` được TV2 xác nhận.
+- [ ] Bitnami entrypoint mặc định được TV2 xác nhận.
+- [ ] `minio_data:/bitnami/minio/data` được TV2 xác nhận.
+- [ ] `keycloak_data:/opt/keycloak/data` được TV2 xác nhận.
 - [ ] Các DNS record/IP được xác nhận.
 - [ ] Secret được chuyển sang `.env`.
 - Ngày xác nhận: `________________`.

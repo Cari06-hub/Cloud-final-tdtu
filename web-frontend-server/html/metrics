@@ -1,0 +1,3 @@
+# HELP web_up Demo web availability metric
+# TYPE web_up gauge
+web_up 1

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Từ máy ảo Ubuntu và Public IP đến các bước triển khai MyMiniCloud bằng Docker.">
+  <title>AWS EC2 là gì? | MyMiniCloud</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner">
+    <a class="brand" href="../index.html">MyMini<span>Cloud</span></a>
+    <nav class="site-nav" aria-label="Điều hướng chính">
+      <a href="../index.html">Trang chủ</a>
+      <a href="index.html">Blog công nghệ</a>
+    </nav></div></header>
+  <main class="container">
+    <nav class="breadcrumb" aria-label="Đường dẫn trang">
+      <a href="../index.html">Trang chủ</a> / <a href="index.html">Blog</a> / AWS EC2 là gì?
+    </nav>
+    <div class="article-header"><span class="eyebrow">Bài 03 · Cloud deployment</span>
+      <h1>AWS EC2 là gì?</h1><p class="lead">Từ máy ảo Ubuntu và Public IP đến các bước triển khai MyMiniCloud bằng Docker.</p>
+      <p class="article-meta">MyMiniCloud • Bài viết kiến thức Cloud Computing</p>
+    </div>
+    <div class="article-grid">
+      <article class="article">
+        <img class="article-hero" src="../images/aws.jpg" alt="Minh họa máy chủ ảo EC2 chạy ứng dụng Docker">
+        <section id="ec2">
+          <h2>1. Amazon EC2 là gì?</h2>
+          <p>Amazon Elastic Compute Cloud (EC2) cung cấp máy chủ ảo có thể cấu hình CPU, RAM, ổ đĩa và hệ điều hành. Một máy chủ ảo EC2 được gọi là <strong>instance</strong>, có thể dùng để chạy website, API và nhiều dịch vụ backend.</p><p>Với bài MyMiniCloud, nhóm dùng EC2 Ubuntu làm môi trường triển khai toàn bộ các container sau khi kiểm thử local.</p>
+        </section>
+        <section id="ubuntu">
+          <h2>2. EC2 Ubuntu và kết nối SSH</h2>
+          <p>Khi tạo instance Ubuntu, người quản trị chọn image hệ điều hành, loại máy, khóa SSH và cấu hình mạng. Sau đó dùng SSH để đăng nhập, cài Docker Engine và Docker Compose.</p><pre class="code-sample">ssh -i &lt;key.pem&gt; ubuntu@&lt;PUBLIC_IP&gt;<br>docker compose up -d --build</pre><p>Ví dụ trên chỉ mô tả quy trình; phải thay khóa và Public IP bằng giá trị thật do nhóm triển khai cung cấp.</p>
+        </section>
+        <section id="public">
+          <h2>3. Public IP và Security Group</h2>
+          <p><strong>Public IP</strong> là địa chỉ để truy cập instance từ Internet khi định tuyến và quy tắc bảo mật cho phép. Security Group đóng vai trò tường lửa cấp instance, chỉ cho phép lưu lượng trên những port cần thiết.</p><table class="content-table"><tr><th>Port</th><th>Mục đích</th><th>Gợi ý</th></tr><tr><td>22</td><td>SSH</td><td>Giới hạn IP quản trị</td></tr><tr><td>80</td><td>Gateway web</td><td>Mở cho người dùng demo</td></tr><tr><td>3306</td><td>MariaDB</td><td>Không mở Internet</td></tr></table>
+        </section>
+        <section id="deploy">
+          <h2>4. Triển khai MyMiniCloud qua Docker Compose</h2>
+          <ol><li>Chuyển mã nguồn và file cấu hình lên EC2 bằng Git hoặc phương thức bàn giao đã thống nhất.</li><li>Tạo file <code>.env</code> riêng trên máy EC2, không đưa mật khẩu lên Git.</li><li>Build và khởi chạy các service với <code>docker compose up -d --build</code>.</li><li>Dùng <code>docker compose ps</code> và log để kiểm tra container.</li><li>Truy cập <code>http://&lt;PUBLIC_IP&gt;/</code> và các API qua Gateway để demo.</li></ol>
+        </section>
+        <section id="ketluan">
+          <h2>5. EC2 liên quan gì đến các thành viên trong nhóm?</h2>
+          <p>Thành viên 1 chuẩn bị Web Nginx, Flask và MariaDB; các thành viên còn lại chuẩn bị dịch vụ xác thực, lưu trữ, giám sát và Gateway. Thành viên 3 phụ trách ghép Compose và triển khai EC2, còn mỗi người hỗ trợ xử lý phần mình nếu có lỗi tích hợp.</p><div class="info-box"><strong>Lưu ý về chi phí:</strong> EC2, ổ đĩa và lưu lượng có thể phát sinh phí. Nhóm nên kiểm tra cấu hình và dừng tài nguyên khi không dùng.</div>
+        </section>
+        <nav class="post-nav" aria-label="Điều hướng bài viết">
+          <a class="button button-outline" href="index.html">← Về danh sách blog</a>
+          <a class="button" href="../index.html">Về trang chủ</a>
+        </nav>
+      </article>
+      <aside class="sidebar" aria-label="Mục lục bài viết">
+        <h2>Nội dung bài viết</h2>
+        <a href="#ec2">1. Amazon EC2 là gì?</a>
+        <a href="#ubuntu">2. EC2 Ubuntu và kết nối SSH</a>
+        <a href="#public">3. Public IP và Security Group</a>
+        <a href="#deploy">4. Triển khai MyMiniCloud qua Docker Compose</a>
+        <a href="#ketluan">5. EC2 liên quan gì đến các thành viên trong nhóm?</a>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner">
+    <span>© MyMiniCloud – Bài thực hành Cloud Computing</span>
+    <a href="index.html">Khám phá các bài blog khác</a>
+  </div></footer>
+</body>
+</html>

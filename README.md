@@ -16,6 +16,8 @@ Kế hoạch triển khai và checklist chi tiết của Trung Nguyên được 
 
 Baseline bảo mật, quy tắc tích hợp nhánh TV1 và checklist thay credential được lưu tại [docs/security-baseline.md](docs/security-baseline.md).
 
+Nguồn file, các thay đổi chuẩn hóa và kết quả kiểm tra Giai đoạn 2 được ghi tại [docs/stage-2-integration-audit.md](docs/stage-2-integration-audit.md).
+
 ## Thành viên và phạm vi
 
 | Thành viên | Phạm vi chính |
