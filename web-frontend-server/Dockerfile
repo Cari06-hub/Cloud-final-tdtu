@@ -1,4 +1,4 @@
-FROM nginx:stable
+FROM nginx:1.30.6
 RUN rm -f /etc/nginx/conf.d/default.conf
 COPY conf.default /etc/nginx/conf.d/default.conf
 COPY html/ /usr/share/nginx/html/

@@ -1,0 +1,9 @@
+FROM nginx:1.30.6
+
+RUN rm -f /etc/nginx/conf.d/default.conf
+COPY conf.default /etc/nginx/conf.d/default.conf
+COPY html2/ /usr/share/nginx/html/
+RUN chmod -R 755 /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

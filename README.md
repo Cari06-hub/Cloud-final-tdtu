@@ -22,6 +22,8 @@ Cấu hình, quyết định phiên bản và kết quả nghiệm thu Prometheu
 
 Cấu hình provisioning, dashboard B8/E8 và kết quả kiểm thử Grafana từ volume rỗng được ghi tại [docs/stage-4-grafana-audit.md](docs/stage-4-grafana-audit.md).
 
+Cấu hình Gateway, các route B9/E9 và kết quả Round Robin E10 được ghi tại [docs/stage-5-gateway-audit.md](docs/stage-5-gateway-audit.md).
+
 ## Thành viên và phạm vi
 
 | Thành viên | Phạm vi chính |

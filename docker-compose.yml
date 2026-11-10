@@ -15,6 +15,56 @@ services:
         ipv4_address: 10.10.10.10
     restart: unless-stopped
 
+  web-frontend-server2:
+    build:
+      context: ./web-frontend-server
+      dockerfile: Dockerfile.web2
+    image: myminicloud-web2:stage5
+    container_name: web-frontend-server2
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.11
+    restart: unless-stopped
+
+  application-backend-server:
+    build:
+      context: ./application-backend-server
+    image: myminicloud-backend:stage5
+    container_name: application-backend-server
+    environment:
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      DB_HOST: ${DB_HOST:-relational-database-server}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME:-studentdb}
+      OIDC_ISSUER: ${OIDC_ISSUER}
+      OIDC_JWKS_URL: ${OIDC_JWKS_URL}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:-flask-app}
+    ports:
+      - "8085:8081"
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.20
+    restart: unless-stopped
+
+  authentication-identity-server:
+    image: quay.io/keycloak/keycloak:26.8.2
+    container_name: authentication-identity-server
+    command: ["start-dev"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Set KEYCLOAK_ADMIN_PASSWORD in .env}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    ports:
+      - "8081:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.40
+    restart: unless-stopped
+
   node-exporter:
     image: quay.io/prometheus/node-exporter:v1.12.1
     container_name: node-exporter
@@ -77,6 +127,25 @@ services:
         ipv4_address: 10.10.10.62
     restart: unless-stopped
 
+  api-gateway-proxy-server:
+    image: nginx:1.30.6-alpine
+    container_name: api-gateway-proxy-server
+    depends_on:
+      - web-frontend-server
+      - web-frontend-server2
+      - application-backend-server
+      - authentication-identity-server
+    ports:
+      - "80:80"
+    volumes:
+      - ./api-gateway-proxy-server/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.70
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
 networks:
   cloud-net:
     name: cloud-net
@@ -86,5 +155,6 @@ networks:
         - subnet: 10.10.10.0/24
 
 volumes:
+  keycloak_data:
   prometheus_data:
   grafana_data:

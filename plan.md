@@ -472,9 +472,9 @@ curl -I http://localhost/auth/
 
 Kết quả mong đợi:
 
-- [ ] `/` trả HTTP 200.
-- [ ] `/api/hello` trả `Hello from App Server!`.
-- [ ] `/auth/` trả 302 theo yêu cầu B9 hoặc có giải pháp cấu hình Keycloak được nhóm xác nhận.
+- [x] `/` trả HTTP 200.
+- [x] `/api/hello` trả `Hello from App Server!`.
+- [x] `/auth/` trả HTTP 302 tới `http://localhost/auth/admin/`.
 
 ### Kiểm thử E9
 
@@ -482,8 +482,8 @@ Kết quả mong đợi:
 curl -s http://localhost/student/
 ```
 
-- [ ] Trả JSON danh sách đúng năm sinh viên.
-- [ ] Không bị 404 do dấu `/` hoặc sai `proxy_pass`.
+- [x] Trả JSON danh sách đúng năm sinh viên.
+- [x] Không bị 404 do dấu `/` hoặc sai `proxy_pass`.
 
 ### Kiểm thử E10
 
@@ -493,9 +493,9 @@ for i in 1 2 3 4 5 6; do
 done
 ```
 
-- [ ] Kết quả có cả `Server 1` và `Server 2`.
-- [ ] Kết quả thể hiện Round Robin, không chỉ ngẫu nhiên trùng một server.
-- [ ] Web 1 và Web 2 dùng nội dung nhận diện khác nhau.
+- [x] Kết quả có cả `Server 1` và `Server 2`.
+- [x] Sáu request liên tiếp luân phiên `Server 1 -> Server 2` đúng Round Robin.
+- [x] Web 1 và Web 2 dùng nội dung nhận diện khác nhau.
 
 ### Commit đề xuất
 
