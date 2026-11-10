@@ -26,6 +26,8 @@ Cấu hình Gateway, các route B9/E9 và kết quả Round Robin E10 được g
 
 Compose tích hợp đủ 11 container, IPAM, DNS, persistence và kết quả hồi quy Giai đoạn 6 được ghi tại [docs/stage-6-compose-audit.md](docs/stage-6-compose-audit.md).
 
+Kết quả smoke test 20/20, quy trình tạo dữ liệu demo và tám ảnh bằng chứng Giai đoạn 7 được ghi tại [docs/stage-7-local-test-audit.md](docs/stage-7-local-test-audit.md).
+
 ## Khởi động stack tích hợp
 
 ```bash
@@ -45,6 +47,17 @@ Nghiệm thu tự động trên PowerShell:
   -GrafanaAdminUser $env:GF_SECURITY_ADMIN_USER `
   -GrafanaAdminPassword $env:GF_SECURITY_ADMIN_PASSWORD
 ```
+
+Chuẩn bị dữ liệu demo, chạy ma trận B1-B10/E1-E10 và chụp bằng chứng:
+
+```powershell
+./scripts/provision-demo.ps1 -EnvFile .env
+bash ./scripts/smoke-test.sh .env
+./scripts/capture-evidence.ps1 -EnvFile .env
+```
+
+Các script chỉ đọc credential từ file môi trường không được commit. Ảnh và log đầu ra
+được lưu trong `docs/evidence/local/`.
 
 Không chạy `docker compose down -v` nếu muốn giữ database, Realm Keycloak,
 bucket MinIO, dữ liệu Prometheus và Grafana.

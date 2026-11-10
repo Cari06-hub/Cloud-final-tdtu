@@ -601,47 +601,47 @@ feat: integrate complete myminicloud compose stack
 
 Quy tắc ảnh:
 
-- [ ] Thấy rõ URL hoặc lệnh kiểm thử.
-- [ ] Thấy rõ kết quả.
-- [ ] Ảnh không bị cắt mất tên target/panel.
-- [ ] Không để lộ mật khẩu, token, access key hoặc secret.
-- [ ] Chỉ dùng ảnh đúng phiên bản cuối của hệ thống.
+- [x] Thấy rõ URL hoặc lệnh kiểm thử.
+- [x] Thấy rõ kết quả.
+- [x] Ảnh không bị cắt mất tên target/panel.
+- [x] Không để lộ mật khẩu, token, access key hoặc secret.
+- [x] Chỉ dùng ảnh đúng phiên bản cuối của hệ thống.
 
 ### Ma trận kiểm thử tích hợp toàn nhóm
 
 #### Phần cơ bản
 
-- [ ] B1: Home và Blog trả HTTP 200.
-- [ ] B2: `/hello` trực tiếp và qua Gateway trả cùng JSON.
-- [ ] B3: MariaDB có bảng `notes` và dữ liệu mẫu.
-- [ ] B4: Keycloak đăng nhập admin, có user `sv01`.
-- [ ] B5: MinIO có bucket `demo`, upload `index.html`.
-- [ ] B6: DNS trả `10.10.10.10`.
-- [ ] B7: Node Exporter target UP, CPU metric có dữ liệu.
-- [ ] B8: Node Exporter Full hiển thị CPU/RAM/Network.
-- [ ] B9: Gateway `/`, `/api/hello`, `/auth/` đạt.
-- [ ] B10: Ping toàn bộ container trong `cloud-net` đạt.
+- [x] B1: Home và Blog trả HTTP 200.
+- [x] B2: `/hello` trực tiếp và qua Gateway trả cùng JSON.
+- [x] B3: MariaDB có bảng `notes` và dữ liệu mẫu.
+- [x] B4: Keycloak đăng nhập admin, có user `sv01`.
+- [x] B5: MinIO có bucket `demo`, upload `index.html`.
+- [x] B6: DNS trả `10.10.10.10`.
+- [x] B7: Node Exporter target UP, CPU metric có dữ liệu.
+- [x] B8: Node Exporter Full hiển thị CPU/RAM/Network.
+- [x] B9: Gateway `/`, `/api/hello`, `/auth/` đạt.
+- [x] B10: Ping toàn bộ container trong `cloud-net` đạt.
 
 #### Phần mở rộng
 
-- [ ] E1: Blog ba bài, có ảnh và link quay lại.
-- [ ] E2: `/student` trả năm sinh viên từ JSON.
-- [ ] E3: `/students-db` đọc dữ liệu từ MariaDB.
-- [ ] E4: Realm, `sv01`, `sv02`, client `flask-app`, `/secure` trả 200.
-- [ ] E5: `profile-pics/avatar.jpg` public; `documents` có PDF.
-- [ ] E6: DNS app/minio/keycloak trả đúng IP.
-- [ ] E7: Prometheus target web UP.
-- [ ] E8: Dashboard `System Health of 52400141` có ba panel.
-- [ ] E9: `/student/` qua Gateway trả JSON.
-- [ ] E10: Round Robin hiển thị Server 1/Server 2.
+- [x] E1: Blog ba bài, có ảnh và link quay lại.
+- [x] E2: `/student` trả năm sinh viên từ JSON.
+- [x] E3: `/students-db` đọc dữ liệu từ MariaDB.
+- [x] E4: Realm, `sv01`, `sv02`, client `flask-app`, `/secure` trả 200.
+- [x] E5: `profile-pics/avatar.jpg` public; `documents` có PDF.
+- [x] E6: DNS app/minio/keycloak trả đúng IP.
+- [x] E7: Prometheus target web UP.
+- [x] E8: Dashboard `System Health of 52400141` có ba panel.
+- [x] E9: `/student/` qua Gateway trả JSON.
+- [x] E10: Round Robin hiển thị Server 1/Server 2.
 
 ### Smoke test
 
-- [ ] Tạo `scripts/smoke-test.sh`.
-- [ ] Script kiểm tra được các mục không cần GUI.
-- [ ] Script trả exit code khác 0 khi có bài thất bại.
-- [ ] Script không chứa mật khẩu thật.
-- [ ] Lưu log kết quả cuối vào phụ lục.
+- [x] Tạo `scripts/smoke-test.sh`.
+- [x] Script kiểm tra được các mục không cần GUI.
+- [x] Script trả exit code khác 0 khi có bài thất bại.
+- [x] Script không chứa mật khẩu thật.
+- [x] Lưu log kết quả cuối vào phụ lục.
 
 ### Commit đề xuất
 
