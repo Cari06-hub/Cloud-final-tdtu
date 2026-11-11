@@ -49,7 +49,7 @@ services:
     restart: unless-stopped
 
   relational-database-server:
-    image: mariadb:11.4.5
+    image: mariadb:10.11
     container_name: relational-database-server
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?Set MARIADB_ROOT_PASSWORD in .env}
@@ -71,7 +71,7 @@ services:
     restart: unless-stopped
 
   authentication-identity-server:
-    image: quay.io/keycloak/keycloak:26.8.2
+    image: quay.io/keycloak/keycloak:24.0
     container_name: authentication-identity-server
     command: ["start-dev"]
     environment:
@@ -89,7 +89,7 @@ services:
     restart: unless-stopped
 
   object-storage-server:
-    image: bitnami/minio:2024.6.13
+    image: bitnami/minio:latest
     container_name: object-storage-server
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
@@ -119,7 +119,7 @@ services:
     restart: unless-stopped
 
   node-exporter:
-    image: quay.io/prometheus/node-exporter:v1.12.1
+    image: quay.io/prometheus/node-exporter:v1.8.2
     container_name: node-exporter
     command:
       - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($$|/)
@@ -131,7 +131,7 @@ services:
     restart: unless-stopped
 
   monitoring-prometheus-server:
-    image: prom/prometheus:v3.13.5
+    image: prom/prometheus:v2.53.0
     container_name: monitoring-prometheus-server
     command:
       - --config.file=/etc/prometheus/prometheus.yml
@@ -152,7 +152,7 @@ services:
     restart: unless-stopped
 
   monitoring-grafana-dashboard-server:
-    image: grafana/grafana:13.3.0
+    image: grafana/grafana:11.1.0
     container_name: monitoring-grafana-dashboard-server
     depends_on:
       - monitoring-prometheus-server
@@ -174,7 +174,7 @@ services:
     restart: unless-stopped
 
   api-gateway-proxy-server:
-    image: nginx:1.30.6-alpine
+    image: nginx:1.27-alpine
     container_name: api-gateway-proxy-server
     depends_on:
       - web-frontend-server
