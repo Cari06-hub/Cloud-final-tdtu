@@ -1,0 +1,23 @@
+MyMiniCloud - KIEM THU 20 MUC - 2026-11-12T00:36:25
+Kiem tra tren MAY HIEN TAI; khong su dung ket qua luu tu truoc.
+[PASS] B1  Web + blog tren 2 instance
+[PASS] B2  Flask hello truc tiep/qua Gateway
+[PASS] B3  MariaDB notes
+[PASS] B4  Keycloak realm sv01
+[PASS] B5  MinIO demo bucket
+[PASS] B6  DNS ban ghi Web
+[PASS] B7  Prometheus Node Exporter
+[PASS] B8  Grafana/CPU/RAM/Network
+[PASS] B9  Gateway Web/API/Auth
+[PASS] B10 11 container lien lac qua network
+[PASS] E1  3 bai blog + anh + link trang chu
+[PASS] E2  API /student 5 ban ghi
+[PASS] E3  API studentdb 5 ban ghi
+[PASS] E4  OIDC sv01/sv02 va /secure
+[PASS] E5  MinIO avatar public va PDF private
+[PASS] E6  DNS app/minio/keycloak
+[PASS] E7  Prometheus Web target
+[PASS] E8  Dashboard System Health 3 panel
+[PASS] E9  Gateway /student/
+[PASS] E10 Round Robin 2 Web Server
+KET QUA: PASS 20/20, FAIL 0/20

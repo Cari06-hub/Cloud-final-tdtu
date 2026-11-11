@@ -265,37 +265,30 @@ foreach ($entry in $userPasswords.GetEnumerator()) {
 Write-Host "[6/7] Provisioning MinIO B5/E5 buckets and objects..."
 $minioUser = Get-RequiredValue -Values $config -Name "MINIO_ROOT_USER"
 $minioPassword = Get-RequiredValue -Values $config -Name "MINIO_ROOT_PASSWORD"
-# Explicitly set alias on every machine instead of relying on an old mc config.
+
+# bitnamilegacy/minio image includes mc client – use docker exec directly
 docker exec $MinioContainer mc alias set local http://127.0.0.1:9000 $minioUser $minioPassword | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "Could not configure MinIO mc alias." }
 
-$uploads = [ordered]@{
-    "test-upload/index.html" = "/tmp/myminicloud-index.html"
-    "test-upload/avatar.jpg" = "/tmp/myminicloud-avatar.jpg"
-    "test-upload/document.pdf" = "/tmp/myminicloud-document.pdf"
-}
-foreach ($entry in $uploads.GetEnumerator()) {
-    docker cp $entry.Key "${MinioContainer}:$($entry.Value)" | Out-Null
-    if ($LASTEXITCODE -ne 0) {
-        throw "docker cp failed for $($entry.Key)."
-    }
-}
 foreach ($bucket in @("demo", "profile-pics", "documents")) {
     docker exec $MinioContainer mc mb --ignore-existing "local/$bucket" | Out-Null
-    if ($LASTEXITCODE -ne 0) {
-        throw "Could not create MinIO bucket: $bucket"
-    }
+    if ($LASTEXITCODE -ne 0) { throw "Could not create bucket: $bucket" }
 }
-docker exec $MinioContainer mc cp /tmp/myminicloud-index.html local/demo/index.html | Out-Null
-docker exec $MinioContainer mc cp /tmp/myminicloud-avatar.jpg local/profile-pics/avatar.jpg | Out-Null
-docker exec $MinioContainer mc cp /tmp/myminicloud-document.pdf local/documents/document.pdf | Out-Null
-if ($LASTEXITCODE -ne 0) {
-    throw "Could not upload one or more MinIO fixtures."
+
+$uploads = [ordered]@{
+    "test-upload/index.html"   = "local/demo/index.html"
+    "test-upload/avatar.jpg"   = "local/profile-pics/avatar.jpg"
+    "test-upload/document.pdf" = "local/documents/document.pdf"
+}
+foreach ($entry in $uploads.GetEnumerator()) {
+    $tmpFile = "/tmp/upload-$(Split-Path $entry.Key -Leaf)"
+    docker cp $entry.Key "${MinioContainer}:${tmpFile}" | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "docker cp failed: $($entry.Key)" }
+    docker exec $MinioContainer mc cp $tmpFile $entry.Value | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "mc cp failed: $($entry.Key) -> $($entry.Value)" }
 }
 docker exec $MinioContainer mc anonymous set download local/profile-pics | Out-Null
-if ($LASTEXITCODE -ne 0) {
-    throw "Could not set public read policy on profile-pics."
-}
+if ($LASTEXITCODE -ne 0) { throw "Could not set public policy on profile-pics." }
 
 Write-Host "[7/7] Verifying MinIO objects and public avatar..."
 foreach ($object in @(

@@ -75,6 +75,8 @@ services:
     container_name: authentication-identity-server
     command: ["start-dev"]
     environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Set KEYCLOAK_ADMIN_PASSWORD in .env}
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Set KEYCLOAK_ADMIN_PASSWORD in .env}
       KC_HOSTNAME_STRICT: "false"
@@ -89,7 +91,7 @@ services:
     restart: unless-stopped
 
   object-storage-server:
-    image: bitnami/minio:latest
+    image: bitnamilegacy/minio:2024.6.13
     container_name: object-storage-server
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
@@ -152,7 +154,7 @@ services:
     restart: unless-stopped
 
   monitoring-grafana-dashboard-server:
-    image: grafana/grafana:11.1.0
+    image: grafana/grafana:10.4.2
     container_name: monitoring-grafana-dashboard-server
     depends_on:
       - monitoring-prometheus-server
